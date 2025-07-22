@@ -10,25 +10,13 @@ const app = express();
 
 app.use(express.json());
 // app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
-
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-];
-//Enabling cors
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+app.options('*', cors({
+  origin: process.env.CLIENT_URL,
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+}));
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
+
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
