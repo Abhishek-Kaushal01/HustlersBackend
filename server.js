@@ -18,6 +18,9 @@ app.use('/api/contact', require('./routes/contactRoutes')); // Add this line
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message || 'Server Error' });
 });
+app.get('/',(req,res)=>{
+  res.send("Backend is live!");
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
